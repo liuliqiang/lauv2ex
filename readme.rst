@@ -103,6 +103,33 @@ liqiang 的 v2ex 命令行客户端，使用 Go 语言编写，支持简单扩�
     如果年终奖不被区别对待，那我宁愿不参加年会。
     -------------
 
+用户获取
+--------
+
+根据用户名获取用户
+^^^^^^^^^^^^^^^^^^
+
+.. code-block:: shell
+
+    /home/yetship/lauv2ex (master ✔) ᐅ v2ex user romoo
+    id: 123
+    name: romoo
+    page: http://www.v2ex.com/member/romoo
+    status: found
+    avatar: //cdn.v2ex.com/avatar/202c/b962/123_large.png?m=1514972300
+
+根据用户 ID 获取用户
+^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: shell
+
+    /home/yetship/lauv2ex (master ✔) ᐅ v2ex user -i 123
+    id: 123
+    name: romoo
+    page: http://www.v2ex.com/member/romoo
+    status: found
+    avatar: //cdn.v2ex.com/avatar/202c/b962/123_large.png?m=1514972300
+
 版权申明
 ========
 
