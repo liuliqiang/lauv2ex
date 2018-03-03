@@ -22,9 +22,6 @@ func (s *RawV2exService) GetStats() (*v2ex.Stats, error) {
 
 	stat := &v2ex.Stats{}
 	err := v2ex.GetAPIData(url, stat)
-	if err != nil {
-		return nil, err
-	}
 	return stat, err
 }
 
@@ -33,8 +30,5 @@ func (s *RawV2exService) GetInfo() (*v2ex.Info, error) {
 
 	info := &v2ex.Info{}
 	err := v2ex.GetAPIData(url, info)
-	if err != nil {
-		return nil, err
-	}
-	return info, nil
+	return info, err
 }
