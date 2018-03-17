@@ -40,4 +40,10 @@ type TopicService interface {
 	GetTopicByID(id int) (*Topic, error)
 	//获取指定用户的所有主题
 	GetTopicsByUsername(name string) ([]Topic, error)
+	// Topic 概要
+	TopicSummary(t *Topic) string
+	// Topic 详情
+	TopicDetail(t *Topic) string
+	// Reply 详情
+	ReplyDetail(r *Reply) string
 }

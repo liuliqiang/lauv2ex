@@ -3,6 +3,8 @@ package http
 import (
 	"strconv"
 
+	"fmt"
+
 	"github.com/pkg/errors"
 	"github.com/yetship/lauv2ex"
 )
@@ -86,4 +88,37 @@ func (s *TopicService) GetRepliesByTopicID(id int) ([]v2ex.Reply, error) {
 	err := v2ex.GetAPIData(url, &replies)
 
 	return replies, err
+}
+
+func (s *TopicService) TopicSummary(t *v2ex.Topic) string {
+	return fmt.Sprintf("%6d %3d  %s", t.ID, t.Replies, t.Title)
+}
+
+func (s *TopicService) TopicDetail(topic *v2ex.Topic) string {
+	str := fmt.Sprintf("Title: %s\n", topic.Title)
+	str += fmt.Sprintf("Url: %s\n", topic.URL)
+	str += fmt.Sprintf("Author: %s\n", topic.Member.Username)
+	str += fmt.Sprintf("Content: %s\n", topic.Content)
+	str += fmt.Sprintf("Replics: %d\n", topic.Replies)
+	str += fmt.Sprintf("-----------\n")
+
+	replies, err := s.GetRepliesByTopicID(topic.ID)
+	if err != nil {
+		return "error occur"
+	}
+	for idx, reply := range replies {
+		str += fmt.Sprintf("\tId: %d,  ", idx)
+		str += fmt.Sprintf("%s\n", s.ReplyDetail(&reply))
+		str += fmt.Sprintln("\t-------------")
+	}
+
+	return str
+}
+
+func (s *TopicService) ReplyDetail(r *v2ex.Reply) string {
+	str := fmt.Sprintf("\tUser: %s,  ", r.Member.Username)
+	str += fmt.Sprintf("\tTks: %d\n", r.Thanks)
+	str += fmt.Sprintf("\tContent: %s", r.Content)
+
+	return str
 }

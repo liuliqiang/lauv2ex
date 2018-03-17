@@ -76,7 +76,7 @@ func showHot(s v2ex.TopicService) {
 	}
 
 	for idx, topic := range topics {
-		fmt.Printf("%d: %s\n", idx, topic.Title)
+		fmt.Printf("%d: %s\n", idx, s.TopicSummary(&topic))
 	}
 }
 
@@ -88,7 +88,7 @@ func showLatest(s v2ex.TopicService) {
 
 	fmt.Printf("nb: index  rep title\n")
 	for idx, topic := range topics {
-		fmt.Printf("%2d: %6d %3d  %s\n", idx, topic.ID, topic.Replies, topic.Title)
+		fmt.Printf("%2d: %s\n", idx, s.TopicSummary(&topic))
 	}
 }
 
@@ -99,11 +99,7 @@ func showTopic(s v2ex.TopicService, id string) {
 	}
 
 	topic, err := s.GetTopicByID(iid)
-	fmt.Printf("Title: %s\n", topic.Title)
-	fmt.Printf("Url: %s\n", topic.URL)
-	fmt.Printf("Author: %s\n", topic.Member.Username)
-	fmt.Printf("Content: %s\n", topic.Content)
-	fmt.Printf("Replics: %d\n", topic.Replies)
+	fmt.Printf("%s\n", s.TopicDetail(topic))
 }
 
 func showReplies(s v2ex.TopicService, id string) {
@@ -115,9 +111,7 @@ func showReplies(s v2ex.TopicService, id string) {
 	replies, err := s.GetRepliesByTopicID(iid)
 	for idx, reply := range replies {
 		fmt.Printf("Id: %d,  ", idx)
-		fmt.Printf("User: %s,  ", reply.Member.Username)
-		fmt.Printf("Tks: %d\n", reply.Thanks)
-		fmt.Printf("Content: %s\n", reply.Content)
+		fmt.Printf("%s", s.ReplyDetail(&reply))
 		fmt.Println("-------------")
 	}
 }
